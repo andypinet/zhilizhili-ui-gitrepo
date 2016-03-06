@@ -1,0 +1,27 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@mixin interface-form-group() {
+    .form-group {
+        @content;
+    }
+}
+
+@mixin use-form-group() {
+    $defaults: (
+        ".form-group": (
+        )
+    );
+
+    @include interface-form-group() {
+        @include register-hook("form");
+        @content;
+    }
+}

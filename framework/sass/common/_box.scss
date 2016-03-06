@@ -1,0 +1,5 @@
+@mixin use-border-box() {
+    * {
+        box-sizing: border-box;
+    }
+}

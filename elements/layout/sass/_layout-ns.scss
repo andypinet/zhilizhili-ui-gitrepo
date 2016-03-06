@@ -1,0 +1,301 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@import "../../../settings/sass/namespace";
+
+// custom import
+@import "../../../../zhilizhili-ui/framework/sass/common/center-set";
+
+@mixin interface-layout() {
+    .#{$ns}-layout {
+        @content;
+    }
+}
+
+@mixin use-layout() {
+    $defaults: (
+        ".#{$ns}-layout": (
+        )
+    );
+
+    @include interface-layout() {
+        @include register-hook("layout");
+        @content;
+    }
+}
+
+@mixin use-layout-inline-block-center() {
+    .#{$ns}-layout.inline-block-center:not(.shadow) {
+        @include center-nav();
+        > .#{$ns}-layout__item {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+@mixin use-layout-inline-block-center-for-ie8() {
+    .#{$ns}-layout.inline-block-center {
+        @include com-zhilizhili-polyfill-ie8() {
+            @include center-nav();
+            > .#{$ns}-layout__item {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@mixin use-layout-inline-block-center-for-ie7() {
+    .layout.inline-block-center {
+        @include com-zhilizhili-polyfill-ie7() {
+            @include center-nav();
+            > .layout__item {
+                display: inline-block;
+                zoom: 1;
+                *display: inline;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-layout-use-layout-inline-block-center() {
+    .#{$ns}-layout.inline-block-center:not(.shadow) {
+        @include center-nav();
+        > .#{$ns}-layout__item {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+.#{$ns}-layout.calcsize {
+    $self: #{&};
+    @include clearfix();
+    > .#{$ns}-layout__item {
+        float: left;
+        @include modifiy("prefix") {
+            @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--prefix", $self);
+        }
+        @include modifiy("content") {
+            @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--content", $self);
+        }
+        @include modifiy("suffix") {
+            @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--suffix", $self);
+        }
+    }
+}
+
+@mixin initlize-layout-calcsize() {
+    .#{$ns}-layout.calcsize {
+        $self: #{&};
+        @include clearfix();
+        > .#{$ns}-layout__item {
+            float: left;
+            @include modifiy("prefix") {
+                @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--prefix", $self);
+            }
+            @include modifiy("content") {
+                @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--content", $self);
+            }
+            @include modifiy("suffix") {
+                @include register-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--suffix", $self);
+            }
+        }
+    }
+}
+
+@mixin use-layout-calcsize($classname, $prefix-width, $suffix-width) {
+    .#{$ns}-layout.calcsize#{$classname} {
+        $self: #{&};
+        @include use-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--prefix", $self) {
+            width: $prefix-width;
+            @include register-hook(".#{$ns}-layout.calcsize#{$classname} .#{$ns}-layout__item--prefix");
+        }
+        @include use-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--content", $self) {
+            width: calc(100% -  #{$prefix-width} - #{$suffix-width});
+            @include register-hook(".#{$ns}-layout.calcsize#{$classname} .#{$ns}-layout__item--content");
+        }
+        @include use-hook(".#{$ns}-layout.calcsize .#{$ns}-layout__item--suffix", $self) {
+            width: $suffix-width;
+            @include register-hook(".#{$ns}-layout.calcsize#{$classname} .#{$ns}-layout__item--suffix");
+        }
+        @content;
+    }
+}
+
+@mixin use-layout-flex() {
+    .#{$ns}-layout.flex:not(.shadow) {
+        display: flex;
+        // 水平
+        &.horizontal {
+            flex-direction: row;
+            // 水平居中
+            &.horizontal-center {
+                justify-content: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                align-items: center;
+            }
+        }
+        // 垂直
+        &.vertical {
+            flex-direction: column;
+            // 水平居中
+            &.horizontal-center {
+                align-items: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                justify-content: center;
+            }
+        }
+        @for $i from 1 through 12 {
+            .#{$ns}-flex-#{$i} {
+                flex: $i;
+            }
+        }
+        .#{$ns}-flex-auto {
+            flex: auto;
+        }
+    }
+}
+
+@mixin use-layout-flex-for-ie8() {
+    html.ie8 {
+        .#{$ns}-layout.flex {
+            display: flex;
+            // 水平
+            &.horizontal {
+                flex-direction: row;
+                // 水平居中
+                &.horizontal-center {
+                    justify-content: center;
+                }
+                // 垂直居中
+                &.vertical-center {
+                    align-items: center;
+                }
+            }
+            // 垂直
+            &.vertical {
+                flex-direction: column;
+                // 水平居中
+                &.horizontal-center {
+                    align-items: center;
+                }
+                // 垂直居中
+                &.vertical-center {
+                    justify-content: center;
+                }
+            }
+            @for $i from 1 through 12 {
+                .flex-#{$i} {
+                    flex: $i;
+                }
+            }
+            .flex-auto {
+                flex: auto;
+            }
+        }
+        .justify-content-start {
+            justify-content: flex-start !important;
+        }
+        .justify-content-end {
+            justify-content: flex-end !important;
+        }
+        .justify-content-center {
+            justify-content: center !important;
+        }
+        .justify-content-unset {
+            justify-content: unset !important;
+        }
+        .justify-content-space-around {
+            justify-content: space-around !important;
+        }
+        .justify-content-space-between {
+            justify-content: space-between !important;
+        }
+    }
+}
+
+@mixin use-layout-flex-group() {
+    .#{$ns}-layout[role="group"]:not(.shadow) {
+        &.flex {
+            &.horizontal {
+                .#{$ns}-layout__item {
+                    @include modifiy("prefix") {
+                        justify-content: flex-start;
+                    }
+                    @include modifiy("content") {
+                        justify-content: center;
+                    }
+                    @include modifiy("suffix") {
+                        justify-content: flex-end;
+                    }
+                }
+            }
+            &.align-items-center {
+                .#{$ns}-layout__item {
+                    justify-content: center;
+                }
+            }
+        }
+        &.align-items-center {
+            .#{$ns}-layout__item {
+                text-align: center;
+            }
+        }
+        .#{$ns}-layout__item {
+            @include modifiy("prefix") {
+                justify-content: flex-start;
+            }
+            @include modifiy("content") {
+                text-align: center;
+            }
+            @include modifiy("suffix") {
+                text-align: right;
+            }
+        }
+    }
+}
+
+@mixin use-layout-table() {
+    .#{$ns}-layout.table:not(.shadow) {
+        display: table;
+        > .#{$ns}-layout__item {
+            display: table-cell;
+            vertical-align: top;
+            > .fix-layout-table {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        > .#{$ns}-layout__item.auto {
+            width: 100%;
+            position: relative;
+        }
+        &.vertical-bottom {
+            > .#{$ns}-layout__item {
+                vertical-align: bottom;
+            }
+        }
+        &.vertical-middle {
+            > .#{$ns}-layout__item {
+                vertical-align: middle;
+            }
+        }
+    }
+}

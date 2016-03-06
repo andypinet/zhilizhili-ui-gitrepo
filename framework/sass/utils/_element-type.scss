@@ -1,0 +1,10 @@
+@mixin element-type($name) {
+  $sellist: sl-explode(#{&}, $delimiter:" ");
+  $lastSel: sl-last($sellist);
+  $newSel: str-replace(#{&}, $lastSel, ($name + $lastSel));
+  @at-root {
+    #{$newSel} {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,82 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@import "../../../framework/sass/common/position";
+
+// custom import
+@import "../../../framework/sass/common/position";
+
+@mixin use-utility-position() {
+    .utility-pos-relative {
+        position: relative;
+    }
+    .utility-pos-fixed {
+        position: fixed;
+    }
+    .utility-pos-absolute {
+        position: absolute;
+        &.center.center {
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+    .utility-pos-right-0-and-top-0 {
+        @include com-zhilizhili-position-right-and-top();
+    }
+}
+
+@mixin use-utility-position-with-ns() {
+    .#{$ns}-utility-pos-relative {
+        position: relative;
+    }
+    .#{$ns}-utility-pos-fixed {
+        position: fixed;
+    }
+    .#{$ns}-utility-pos-absolute {
+        position: absolute;
+        &.center.center {
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+    .#{$ns}-utility-pos-left-0 {
+        left: 0;
+    }
+    .#{$ns}-utility-pos-top-0 {
+        top: 0;
+    }
+    .#{$ns}-utility-pos-right-0 {
+        right: 0;
+    }
+    .#{$ns}-utility-pos-bottom-0 {
+        bottom: 0;
+    }
+    .#{$ns}-utility-pos-top-full-parent {
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .#{$ns}-utility-z-index-1 {
+        z-index: 1;
+    }
+    .#{$ns}-utility-z-index-2 {
+        z-index: 2;
+    }
+    .#{$ns}-utility-z-index-3 {
+        z-index: 3;
+    }
+}

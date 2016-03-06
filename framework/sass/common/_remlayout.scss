@@ -1,0 +1,52 @@
+$adaptDeviceWidth: 375 !global;
+$com-zhilizhili-rem-html-polyfill-selector: html;
+$com-zhilizhili-rem-html-polyfill-low-level-selector: unquote("html.not-support-highlevelcss");
+$com-zhilizhili-rem-html-polyfill-high-level-selector: unquote("html.support-highlevelcss");
+
+@function adapt375to320($val) {
+    @return $val / $adaptDeviceWidth * 320;
+}
+
+@function remlayout-polyfill-transformtranslate($propmap) {
+    $ret: ();
+    @each $key, $value in $propmap {
+        @if type-of($value) == list and length($value) > 1 {
+            $prop: nth($value, 1);
+            $ret: map-deep-set($ret, $key, rem(adapt375to320($prop)));
+        } @else {
+            $ret: map-deep-set($ret, $key, $value);
+        }
+    }
+    @return unquote("translate3d(#{map-deep-get($ret, x)}, #{map-deep-get($ret, y), #{map-deep-get($ret, z)}})");
+}
+
+@mixin rempolyfillset($map) {
+    $self: #{&};
+    $ret: ();
+    @at-root  {
+        #{$com-zhilizhili-rem-html-polyfill-selector} {
+            #{$self} {
+                @include rem($ret);
+            }
+        }
+    }
+    @each $key, $value in $map {
+        @if type-of($value) == number {
+            $ret: map-deep-set($ret, $key, adapt375to320($value));
+        } @else if type-of($value) == list {
+            $ret: map-deep-set($ret, $key, nth($value, 1));
+        } @else {
+            @if $key == transform {
+                @at-root  {
+                    html {
+                        #{$self} {
+                            #{$key}: remlayout-polyfill-transformtranslate($value);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+

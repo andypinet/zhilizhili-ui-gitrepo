@@ -1,0 +1,69 @@
+$polyfill: () !global;
+
+/// 给一个selector设置需要处理的polyfill的值
+@mixin polyfill-set-value($selector, $map: ()) {
+    $polyfill: map-deep-set($polyfill, $selector, $map) !global;
+    @each $key, $value in $map {
+        #{$key}: #{$value}
+    }
+}
+
+/// 自动设置selector为当前选择器 给一个设置需要处理的polyfill的值
+@mixin polyfill-easy-set($map) {
+    @include polyfill-set-value("#{&}", $map);
+}
+
+@mixin com-zhilizhili-polyfill-css-low-level() {
+    $self: #{&};
+    @at-root {
+        #{$com-zhilizhili-rem-html-polyfill-selector} {
+            #{$self} {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-polyfill-css-not-support-high-level() {
+    $self: #{&};
+    @at-root {
+        #{$com-zhilizhili-rem-html-polyfill-low-level-selector} {
+            #{$self} {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-polyfill-css-high-level() {
+    $self: #{&};
+    @at-root {
+        #{$com-zhilizhili-rem-html-polyfill-high-level-selector} {
+            #{$self} {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-polyfill-ie8() {
+    $self: #{&};
+    @at-root {
+        html.ie8 {
+            #{$self} {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-polyfill-ie7() {
+    $self: #{&};
+    @at-root {
+        html.ie7 {
+            #{$self} {
+                @content;
+            }
+        }
+    }
+}

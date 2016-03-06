@@ -1,0 +1,41 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@mixin interface-list-group() {
+    .list-group {
+        @content;
+    }
+}
+
+@mixin use-list-group() {
+    $defaults: (
+        ".list-group": (
+            ".list-group__item": (
+                "padding": 10px 30px
+            )
+        )
+    );
+
+    @include interface-list-group() {
+        padding-left: 0;
+        margin: 0;
+        @include element-type("ul") {
+            list-style: none;
+        }
+        @include element("item") {
+            padding: sd-querySelector($defaults, "padding");
+            &.active {
+                @include register-hook("list-group list-group__item--active");
+            }
+        }
+        @include register-hook("list-group");
+        @content;
+    }
+}

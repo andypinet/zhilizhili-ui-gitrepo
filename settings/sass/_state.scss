@@ -1,0 +1,19 @@
+//== Form states and alerts
+//
+//## Define colors for form feedback states and, by default, alerts.
+
+$state-success-text:             #2ECC71;
+$state-success-bg:               #CBF3DC;
+$state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%);
+
+$state-info-text:                #3498DB;
+$state-info-bg:                  #CDE6F6;
+$state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%);
+
+$state-warning-text:             #F39C12;
+$state-warning-bg:               #FCE7C4;
+$state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%);
+
+$state-danger-text:              #E74C3C;
+$state-danger-bg:                #F9D3CF;
+$state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%);

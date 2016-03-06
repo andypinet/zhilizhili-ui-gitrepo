@@ -1,0 +1,23 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@import "../../../settings/sass/namespace";
+
+%margin-0 {
+    margin: 0;
+}
+
+@mixin com-zhilizhili-use-header-common() {
+    @for $i from 1 through 6 {
+        .#{$ns}-h#{$i} {
+            @extend %margin-0;
+        }
+    }
+}

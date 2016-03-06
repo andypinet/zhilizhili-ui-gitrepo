@@ -1,0 +1,56 @@
+// 补充分辨率media query
+@mixin xhdpi($ratio: 2) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    only screen and (min-resolution: #{round($ratio*96)}dpi) {
+        @content;
+    }
+}
+
+@mixin xxhdpi($ratio: 3) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    only screen and (min-resolution: #{round($ratio*96)}dpi) {
+        @content;
+    }
+}
+
+@mixin xxxhdpi($ratio: 4) {
+    @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+    only screen and (min-resolution: #{round($ratio*96)}dpi) {
+        @content;
+    }
+}
+
+// 假设全屏
+@mixin com-zhilizhili-device-desktop-mdpi-for-ie8($orientation: false) {
+    $min: 1024px;
+
+    @media screen and (min-width: $min) {
+        @include com-zhilizhili-polyfill-ie8() {
+            @content;
+        }
+    }
+}
+
+@mixin com-zhilizhili-device-desktop-mdpi($orientation: false) {
+    $min: 1024px;
+    $min-resolution: #{round(96)}dpi;
+
+    @include mq(
+        $min-device-width: $min,
+        $min-resolution: $min-resolution
+    ) {
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-device-desktop-xhdpi($orientation: false) {
+    $min: 1024px;
+    $min-resolution: #{round(192)}dpi;
+
+    @include mq(
+        $min-device-width: $min,
+        $min-resolution: $min-resolution
+    ) {
+        @content;
+    }
+}

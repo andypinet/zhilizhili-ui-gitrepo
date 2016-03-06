@@ -1,0 +1,15 @@
+@mixin generate-animation-duration($num) {
+  @for $i from 1 through $num {
+     .ani-duration-#{$i*100} {
+       animation-duration: $i*100 + ms;
+     }
+  }
+}
+
+@mixin generate-animation-delay($num) {
+  @for $i from 1 through $num {
+    .ani-delay-#{$i*100} {
+      animation-delay: $i*100 + ms;
+    }
+  }
+}

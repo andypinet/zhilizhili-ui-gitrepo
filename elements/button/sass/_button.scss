@@ -1,0 +1,91 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+@import "../../../../zhilizhili-ui/framework/sass/utils/element-type";
+
+@mixin interface-button() {
+  .button {
+      @content;
+  }
+}
+
+@mixin use-button() {
+    $defaults: (
+        ".button": (
+        )
+    );
+
+    @include interface-button() {
+        display: inline-block;
+        cursor: pointer;
+        @include element-type("button") {
+            background-color: transparent;
+        }
+        @include register-hook("button");
+        @content;
+    }
+}
+
+@mixin use-button--basic() {
+    $defaults: (
+        ".button--basic": (
+            "padding": 3px 6px,
+            "border": 1px solid transparent
+        )
+    );
+
+    .button--basic {
+        @include sim-querySelector($defaults, ("padding", "border"));
+        @include register-hook("button--basic");
+        &.grey {
+            color: get-custom-color("grey", "500");
+            border-color: get-custom-color("grey", "500");
+        }
+        &.blue {
+            color: get-custom-color("blue", "600");
+            border-color: get-custom-color("blue", "600");
+        }
+        @content;
+    }
+}
+
+@mixin use-button--colored() {
+    $defaults: (
+        ".button--colored": (
+            "padding": 3px 6px,
+            "border": 1px solid transparent
+        )
+    );
+
+    .button--colored {
+        @include sim-querySelector($defaults, ("padding", "border"));
+        @include register-hook("button--basic");
+        &.grey {
+            color: #ffffff;
+            background-color: get-custom-color("grey", "500");
+        }
+        &.blue {
+            color: #ffffff;
+            background-color: get-custom-color("blue", "600");
+        }
+        &.green {
+            color: #ffffff;
+            background-color: get-custom-color("green", "600");
+        }
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-zhilizhiliui-elements-button-init($selector) {
+    .button {
+        &#{$selector} {
+            @content;
+        }
+    }
+}

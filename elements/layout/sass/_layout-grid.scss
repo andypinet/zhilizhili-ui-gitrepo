@@ -1,0 +1,101 @@
+@mixin com-zhilizhili-layout-grid-shim($num-in-row, $gutter, $parsel, $parwidth: 0) {
+    $grid-item-gutter: $gutter * ($num-in-row - 1) / $num-in-row;
+    $percent: 100 / $num-in-row + 0vw;
+    width: calc(#{$percent} - #{$grid-item-gutter}px);
+    &:nth-child(1n) {
+        float: left;
+        margin-right: #{$gutter}px;
+        clear: none;
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+    &:nth-child(#{$num-in-row}n) {
+        margin-right: 0;
+    }
+    &:nth-child(#{$num-in-row}n+1) {
+        clear: left;
+    }
+    @include com-zhilizhili-calc-easy-set((width: #{$percent} - #{$grid-item-gutter}px, parsel: $parsel, parwidth: $parwidth, pargutter: $gutter));
+}
+
+@mixin com-zhilizhili-layout-grid-by-percenent-shim($num-in-row, $gutter, $parsel, $parwidth: 0) {
+    $grid-item-gutter: $gutter * ($num-in-row - 1) / $num-in-row;
+    $percent: 100 / $num-in-row + 0%;
+    width: calc(#{$percent} - #{$grid-item-gutter}px);
+    &:nth-child(1n) {
+        float: left;
+        margin-right: #{$gutter}px;
+        clear: none;
+    }
+    &:last-child {
+        margin-right: 0;
+    }
+    &:nth-child(#{$num-in-row}n) {
+        margin-right: 0;
+    }
+    &:nth-child(#{$num-in-row}n+1) {
+        clear: left;
+    }
+    @include com-zhilizhili-calc-easy-set((width: #{$percent} - #{$grid-item-gutter}px, parsel: $parsel, parwidth: $parwidth, pargutter: $gutter));
+}
+
+@mixin com-zhilizhili-layout-responsive-grid-gutter-polyfill(
+    $rownum,
+    $gutter,
+    $parwidth,
+    $fallback,
+    $selector: "",
+    $level: 100
+) {
+    .layout.ui-collection.grid-shim.gutter-#{$level}#{$selector} {
+        $parent: #{&};
+        padding-top:  #{$gutter}px;
+        padding-left:  #{$gutter}px;
+        padding-bottom: #{$gutter}px;
+        padding-right:  #{$gutter}px;
+        overflow: hidden;        
+        > .layout__item {
+            @include com-zhilizhili-utils-map-to-style($fallback);
+            @include com-zhilizhili-layout-grid-by-percenent-shim($rownum, $gutter, $parent, unquote("#{vw($parwidth)}")); 
+            margin-top: #{$gutter}px;
+            &:nth-child(-n+#{$rownum}) {
+                margin-top: 0;
+            }           
+        }
+        @content;
+    }    
+}
+
+$com-zhilizhili-layout-responsive-grid-selector: () !global;
+
+@mixin com-zhilizhili-layout-responsive-grid-init($id) {
+    $com-zhilizhili-layout-responsive-grid-selector: map-deep-set($com-zhilizhili-layout-responsive-grid-selector, $id, #{&}) !global;
+    &:nth-child(1n) {
+        float: left;
+        clear: none;
+    }
+}
+
+@mixin com-zhilizhili-layout-responsive-grid-polyfill($id, $num-in-row, $map, $style) {
+    $selector: map-deep-get($com-zhilizhili-layout-responsive-grid-selector, $id);
+    #{$selector}:nth-child(1n) {
+        @include polyfill-gaoji-set($map)
+    }
+    #{$selector} {
+        @include polyfill-gaoji-set($style);
+    }
+    @at-root {
+        #{$com-zhilizhili-rem-html-polyfill-selector} {
+            #{$selector}:last-child {
+                margin-right: 0;
+            }
+            #{$selector}:nth-child(#{$num-in-row}n) {
+                margin-right: 0;
+            }
+            #{$selector}:nth-child(#{$num-in-row}n+1) {
+                clear: left;
+            }
+        }
+    }
+}

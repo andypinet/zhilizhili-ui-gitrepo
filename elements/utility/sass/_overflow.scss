@@ -1,0 +1,45 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@mixin com-zhilizhili-use-utility-overflow() {
+    .utility-overflow-auto {
+        overflow: auto;
+    }
+    .utility-overflow-hidden {
+        overflow: hidden;
+    }
+    .utility-overflow-visible {
+        overflow: visible;
+    }
+}
+
+@mixin com-zhilizhili-use-utility-overflow-with-ns() {
+    .#{$ns}-utility-overflow-auto {
+        overflow: auto;
+    }
+    .#{$ns}-utility-overflow-hidden {
+        overflow: hidden;
+    }
+    .#{$ns}-utility-overflow-visible {
+        overflow: visible;
+    }
+}
+
+@mixin com-zhilizhili-use-utility-overflow-with-media($media) {
+    .zl-#{$media}-utility-overflow-auto {
+        overflow: auto;
+    }
+    .zl-#{$media}-utility-overflow-hidden {
+        overflow: hidden;
+    }
+    .zl-#{$media}-utility-overflow-visible {
+        overflow: visible;
+    }
+}

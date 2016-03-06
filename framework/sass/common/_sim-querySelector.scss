@@ -1,0 +1,5 @@
+@mixin sim-querySelector($obj, $props) {
+  @each $prop in $props {
+    #{$prop}: sd-querySelector($obj, $prop);
+  }
+}

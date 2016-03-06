@@ -1,0 +1,85 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@import "../../../settings/sass/namespace";
+
+@mixin interface-com-zhilizhili-nav() {
+    .#{$ns}-nav {
+        @content;
+    }
+}
+
+@mixin use-com-zhilizhili-nav() {
+    $defaults: (
+        ".#{$ns}-nav": (
+        )
+    );
+
+    @include interface-com-zhilizhili-nav() {
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        &__item {
+            list-style: none;
+        }
+        @include register-hook(".#{$ns}-nav");
+        @content;
+    }
+}
+
+@mixin use-com-zhilizhili-nav-init($selector) {
+    $defaults: (
+        ".#{$ns}-nav": (
+        )
+    );
+
+    @include interface-com-zhilizhili-nav() {
+        &#{$selector} {
+            @content;
+            @include register-hook("#{&}");
+        }
+    }
+}
+
+/// @access public
+/// @author lbc
+@mixin com-zhilizhili-nav-use-nav-item() {
+    .#{$ns}-nav__item {
+        @content;
+    }
+}
+
+/// @access public
+/// @author lbc
+@mixin com-zhilizhili-nav-use-nav-link() {
+    .#{$ns}-nav__link {
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-nav-use-children-nav-item() {
+    > .#{$ns}-nav__item {
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-nav-use-children-nav-link() {
+    > .#{$ns}-nav__item > .#{$ns}-nav__link {
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-zhilizhiliui-elements-nav-subnav-init($selector) {
+    .#{$ns}-subnav {
+        &#{$selector} {
+            @content;
+        }
+    }
+}

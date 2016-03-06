@@ -1,0 +1,428 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+// custom import
+@import "../../../../zhilizhili-ui/framework/sass/common/center-set";
+
+@mixin interface-layout() {
+    .layout {
+        @content;
+    }
+}
+
+@mixin use-layout() {
+    $defaults: (
+        ".layout": (
+        )
+    );
+
+    @include interface-layout() {
+        @include register-hook("layout");
+        @content;
+    }
+}
+
+@mixin use-layout-inline-block-center() {
+    .layout.inline-block-center:not(.shadow) {
+        @include center-nav();
+        > .layout__item {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+@mixin use-layout-inline-block-center-for-ie8() {
+    .layout.inline-block-center {
+        @include com-zhilizhili-polyfill-ie8() {
+            @include center-nav();
+            > .layout__item {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@mixin use-layout-inline-block-center-for-ie7() {
+    .layout.inline-block-center {
+        @include com-zhilizhili-polyfill-ie7() {
+            @include center-nav();
+            > .layout__item {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+@mixin com-zhilizhili-layout-use-layout-inline-block-center() {
+    .layout.inline-block-center:not(.shadow) {
+        @include center-nav();
+        > .layout__item {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+.layout.calcsize {
+    $self: #{&};
+    @include clearfix();
+    > .layout__item {
+        float: left;
+        @include modifiy("prefix") {
+            @include register-hook(".layout.calcsize .layout__item--prefix", $self);
+        }
+        @include modifiy("content") {
+            @include register-hook(".layout.calcsize .layout__item--content", $self);
+        }
+        @include modifiy("suffix") {
+            @include register-hook(".layout.calcsize .layout__item--suffix", $self);
+        }
+    }
+}
+
+@mixin initlize-layout-calcsize() {
+    .layout.calcsize {
+        $self: #{&};
+        @include clearfix();
+        > .layout__item {
+            float: left;
+            @include modifiy("prefix") {
+                @include register-hook(".layout.calcsize .layout__item--prefix", $self);
+            }
+            @include modifiy("content") {
+                @include register-hook(".layout.calcsize .layout__item--content", $self);
+            }
+            @include modifiy("suffix") {
+                @include register-hook(".layout.calcsize .layout__item--suffix", $self);
+            }
+        }
+    }
+}
+
+@mixin use-layout-calcsize($classname, $prefix-width, $suffix-width) {
+    .layout.calcsize#{$classname} {
+        $self: #{&};
+        @include use-hook(".layout.calcsize .layout__item--prefix", $self) {
+            width: $prefix-width;
+            @include register-hook(".layout.calcsize#{$classname} .layout__item--prefix");
+        }
+        @include use-hook(".layout.calcsize .layout__item--content", $self) {
+            width: calc(100% -  #{$prefix-width} - #{$suffix-width});
+            @include register-hook(".layout.calcsize#{$classname} .layout__item--content");
+        }
+        @include use-hook(".layout.calcsize .layout__item--suffix", $self) {
+            width: $suffix-width;
+            @include register-hook(".layout.calcsize#{$classname} .layout__item--suffix");
+        }
+        @content;
+    }
+}
+
+@mixin use-old-layout-flex() {
+    .layout.flex:not(.shadow) {
+        display: flex;
+        // 水平
+        &.horizontal {
+            flex-direction: row;
+            // 水平居中
+            &.center {
+                justify-content: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                align-items: center;
+            }
+        }
+        // 垂直
+        &.vertical {
+            flex-direction: column;
+            // 水平居中
+            &.center {
+                align-items: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                justify-content: center;
+            }
+        }
+        @for $i from 1 through 12 {
+            .flex-#{$i} {
+                flex: $i;
+            }
+        }
+        .flex-auto {
+            flex: auto;
+        }
+        .flex-start {
+            justify-content: flex-start !important;
+        }
+        .flex-end {
+            justify-content: flex-end !important;
+        }
+        .flex-unset {
+            justify-content: unset !important;
+        }
+        .flex-space-around {
+            justify-content: space-around !important;
+        }
+        .flex-space-between {
+            justify-content: space-between !important;
+        }
+        &.flex-auto {
+            flex: auto;
+        }
+        &.flex-start {
+            justify-content: flex-start !important;
+        }
+        &.flex-end {
+            justify-content: flex-end !important;
+        }
+        &.flex-unset {
+            justify-content: unset !important;
+        }
+        &.flex-space-around {
+            justify-content: space-around !important;
+        }
+        &.flex-space-between {
+            justify-content: space-between !important;
+        }
+    }
+}
+
+@mixin use-old-layout-flex-group() {
+    .layout[role="group"]:not(.shadow) {
+        &.flex {
+            &.horizontal {
+                .layout__item {
+                    @include modifiy("prefix") {
+                        justify-content: flex-start;
+                    }
+                    @include modifiy("content") {
+                        justify-content: center;
+                    }
+                    @include modifiy("suffix") {
+                        justify-content: flex-end;
+                    }
+                }
+            }
+            &.align-items-center {
+                .layout__item {
+                    justify-content: center;
+                }
+            }
+        }
+        &.align-items-center {
+            .layout__item {
+                text-align: center;
+            }
+        }
+        .layout__item {
+            @include modifiy("prefix") {
+                justify-content: flex-start;
+            }
+            @include modifiy("content") {
+                text-align: center;
+            }
+            @include modifiy("suffix") {
+                text-align: right;
+            }
+        }
+    }
+}
+
+@mixin use-layout-flex() {
+    .layout.flex:not(.shadow) {
+        display: flex;
+        // 水平
+        &.horizontal {
+            flex-direction: row;
+            // 水平居中
+            &.horizontal-center {
+                justify-content: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                align-items: center;
+            }
+        }
+        // 垂直
+        &.vertical {
+            flex-direction: column;
+            // 水平居中
+            &.horizontal-center {
+                align-items: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                justify-content: center;
+            }
+        }
+        @for $i from 1 through 12 {
+            .flex-#{$i} {
+                flex: $i;
+            }
+        }
+        .flex-auto {
+            flex: auto;
+        }
+    }
+    .justify-content-start:not(.shadow) {
+        justify-content: flex-start !important;
+    }
+    .justify-content-end:not(.shadow) {
+        justify-content: flex-end !important;
+    }
+    .justify-content-center:not(.shadow) {
+        justify-content: center !important;
+    }
+    .justify-content-unset:not(.shadow) {
+        justify-content: unset !important;
+    }
+    .justify-content-space-around:not(.shadow) {
+        justify-content: space-around !important;
+    }
+    .justify-content-space-between:not(.shadow) {
+        justify-content: space-between !important;
+    }
+}
+
+@mixin use-layout-flex-for-ie8() {
+    html.ie8 {
+        .layout.flex {
+            display: flex;
+            // 水平
+            &.horizontal {
+                flex-direction: row;
+                // 水平居中
+                &.horizontal-center {
+                    justify-content: center;
+                }
+                // 垂直居中
+                &.vertical-center {
+                    align-items: center;
+                }
+            }
+            // 垂直
+            &.vertical {
+                flex-direction: column;
+                // 水平居中
+                &.horizontal-center {
+                    align-items: center;
+                }
+                // 垂直居中
+                &.vertical-center {
+                    justify-content: center;
+                }
+            }
+            @for $i from 1 through 12 {
+                .flex-#{$i} {
+                    flex: $i;
+                }
+            }
+            .flex-auto {
+                flex: auto;
+            }
+        }
+        .justify-content-start {
+            justify-content: flex-start !important;
+        }
+        .justify-content-end {
+            justify-content: flex-end !important;
+        }
+        .justify-content-center {
+            justify-content: center !important;
+        }
+        .justify-content-unset {
+            justify-content: unset !important;
+        }
+        .justify-content-space-around {
+            justify-content: space-around !important;
+        }
+        .justify-content-space-between {
+            justify-content: space-between !important;
+        }
+    }
+}
+
+
+@mixin use-layout-flex-group() {
+    .layout[role="group"]:not(.shadow) {
+        &.flex {
+            &.horizontal {
+                .layout__item {
+                    @include modifiy("prefix") {
+                        justify-content: flex-start;
+                    }
+                    @include modifiy("content") {
+                        justify-content: center;
+                    }
+                    @include modifiy("suffix") {
+                        justify-content: flex-end;
+                    }
+                }
+            }
+            &.align-items-center {
+                .layout__item {
+                    justify-content: center;
+                }
+            }
+        }
+        &.align-items-center {
+            .layout__item {
+                text-align: center;
+            }
+        }
+        .layout__item {
+            @include modifiy("prefix") {
+                justify-content: flex-start;
+            }
+            @include modifiy("content") {
+                text-align: center;
+            }
+            @include modifiy("suffix") {
+                text-align: right;
+            }
+        }
+    }
+}
+
+@mixin use-layout-table() {
+    .layout.table:not(.shadow) {
+        display: table;
+        > .layout__item {
+            display: table-cell;
+            vertical-align: top;
+            > .fix-layout-table {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+        > .layout__item.auto {
+            width: 100%;
+            position: relative;
+        }
+        &.vertical-bottom {
+            > .layout__item {
+                vertical-align: bottom;
+            }
+        }
+        &.vertical-middle {
+            > .layout__item {
+                vertical-align: middle;
+            }
+        }
+    }
+}

@@ -1,0 +1,86 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+// custom import
+@import "../../../../zhilizhili-ui/framework/sass/utils/element-type";
+
+@mixin interface-form-field() {
+    .form-field {
+        @content;
+    }
+}
+
+@mixin use-form-field() {
+    $defaults: (
+        ".form-field": (
+            "padding": 5px 10px
+        )
+    );
+
+    @include interface-form-field() {
+        input {
+            border: 0;
+            width: 100%;
+            &:focus {
+                outline: none;
+            }
+        }
+        textarea {
+            border: 0;
+            width: 100%;
+            resize: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        @include register-hook("form");
+        @content;
+    }
+}
+
+@mixin use-form-field--basic() {
+    $defaults: (
+        ".form-field--basic": (
+            "padding": 5px 10px
+        )
+    );
+
+    .form-field--basic {
+        border-width: 1px;
+        border-style: solid;
+        &.grey {
+            color: get-custom-color("grey", "500");
+            border-color: get-custom-color("grey", "500");
+        }
+        &.blue {
+            color: get-custom-color("blue", "600");
+            border-color: get-custom-color("blue", "600");
+        }
+        @include sim-querySelector($defaults, ("padding"));
+        @include register-hook("form-field--basic");
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-zhilizhiliui-elements-form-init($selector) {
+    .form {
+        &#{$selector} {
+            @content;
+        }
+    }
+}
+
+@mixin com-zhilizhili-zhilizhiliui-elements-form-field-init($selector) {
+    .form-field {
+        &#{$selector} {
+            @content;
+        }
+    }
+}

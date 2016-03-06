@@ -1,0 +1,51 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@mixin interface-form-select() {
+    .form-select {
+        @content;
+    }
+}
+
+@mixin use-form-select() {
+    $defaults: (
+        ".form-select": (
+        )
+    );
+
+    @include interface-form-select() {
+        display: block;
+        @include register-hook("form");
+        @content;
+    }
+}
+
+@mixin use-form-select--basic() {
+    $defaults: (
+        ".form-select--basic": (
+            "padding": 0,
+            "border": 1px solid transparent
+        )
+    );
+
+    .form-select--basic {
+        &.grey {
+            border-color: get-custom-color("grey", "500");
+        }
+        select {
+            appearance: none;
+            border-color: transparent;
+            background-color: transparent;
+        }
+        @include sim-querySelector($defaults, ("padding", "border"));
+        @include register-hook("form-select--basic");
+        @content;
+    }
+}

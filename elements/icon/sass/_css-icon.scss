@@ -1,0 +1,38 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+@import "../../../../zhilizhili-ui/framework/sass/common/triangle";
+
+@mixin interface-css-icon() {
+    .css-icon {
+        @content;
+    }
+}
+
+@mixin use-css-icon() {
+    $defaults: (
+        ".css-icon": (
+        )
+    );
+
+    @include interface-css-icon() {
+        @include register-hook(".css-icon");
+        @content;
+    }
+}
+
+@mixin com-zhilizhili-icon-use-css-icon() {
+    .icon.css-icon.arrow-down {
+        @include triangle(
+            $direction : bottom,
+            $color     : get-custom-color("grey", "500"),
+            $size      : 5px
+        );
+    }
+}

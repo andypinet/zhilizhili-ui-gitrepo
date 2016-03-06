@@ -1,0 +1,25 @@
+////
+/// This is a poster comment.
+/// @group com.zhilizhili.zhlizhliUi.utils.background
+/// @author lbc
+////
+
+@import "../../../settings/sass/namespace";
+
+/// 用来设置background的基础mixin
+/// @access public
+/// @param {String} $imagepath
+/// @param {String} $folder
+/// @param {String} $extension [png]
+@mixin com-zhilizhili-zhilizhiliui-utils-background-image-set($imagepath, $folder, $extension: png) {
+    $url: $folder + $imagepath + "." + $extension;
+    background-image: url($url);
+}
+
+/// 基础背景式样
+/// @access public
+@mixin com-zhilizhili-zhilizhiliui-utils-background-image-common() {
+    background-repeat: no-repeat;
+    background-position: center center;
+    @content;
+}

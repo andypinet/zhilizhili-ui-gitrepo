@@ -1,0 +1,25 @@
+$_scss-component-block: () !global;
+
+
+@mixin block($name) {
+  #{$name} {
+    @content;
+  }
+}
+
+@mixin element($name: null) {
+  $parentsel: #{&};
+  @if str-index($parentsel, "--") != null {
+    $arr: str-explode($parentsel, "--");
+    $parentsel: nth($arr, 1);
+  }
+  #{$parentsel}__#{$name} {
+    @content;
+  }
+}
+
+@mixin modifiy($name: null) {
+  &--#{$name} {
+    @content;
+  }
+}

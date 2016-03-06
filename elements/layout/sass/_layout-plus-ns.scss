@@ -1,0 +1,157 @@
+@import "../../../settings/sass/namespace";
+
+@mixin com-zhilizhili-layout-use-justify-content() {
+    .#{$ns}-justify-content-start:not(.shadow) {
+        justify-content: flex-start !important;
+    }
+    .#{$ns}-justify-content-end:not(.shadow) {
+        justify-content: flex-end !important;
+    }
+    .#{$ns}-justify-content-center:not(.shadow) {
+        justify-content: center !important;
+    }
+    .#{$ns}-justify-content-unset:not(.shadow) {
+        justify-content: unset !important;
+    }
+    .#{$ns}-justify-content-space-around:not(.shadow) {
+        justify-content: space-around !important;
+    }
+    .#{$ns}-justify-content-space-between:not(.shadow) {
+        justify-content: space-between !important;
+    }
+}
+
+@mixin com-zhilizhili-layout-use-layout-inline-flex() {
+    .#{$ns}-layout.inline-flex:not(.shadow) {
+        display: inline-flex;
+        // 水平
+        &.horizontal {
+            flex-direction: row;
+            // 水平居中
+            &.horizontal-center {
+                justify-content: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                align-items: center;
+            }
+        }
+        // 垂直
+        &.vertical {
+            flex-direction: column;
+            // 水平居中
+            &.horizontal-center {
+                align-items: center;
+            }
+            // 垂直居中
+            &.vertical-center {
+                justify-content: center;
+            }
+        }
+        @for $i from 1 through 12 {
+            .flex-#{$i} {
+                flex: $i;
+            }
+        }
+        .flex-auto {
+            flex: auto;
+        }
+    }
+}
+
+@mixin com-zhilizhili-layout-use-align-items() {
+    .#{$ns}-align-items-start:not(.shadow) {
+        align-items: flex-start !important;
+    }
+    .#{$ns}-align-items-end:not(.shadow) {
+        align-items: flex-end !important;
+    }
+    .#{$ns}-align-items-center:not(.shadow) {
+        align-items: center !important;
+    }
+    .#{$ns}-align-items-unset:not(.shadow) {
+        align-items: unset !important;
+    }
+    .#{$ns}-align-items-baseline:not(.shadow) {
+        align-items: baseline !important;
+    }
+    .#{$ns}-align-items-stretch:not(.shadow) {
+        align-items: stretch !important;
+    }
+}
+
+@mixin com-zhilizhili-layout-use-align-items-for-ie8() {
+    .#{$ns}-align-items-start {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: flex-start !important;
+        }
+    }
+    .#{$ns}-align-items-end {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: flex-end !important;
+        }
+    }
+    .#{$ns}-align-items-center {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: center !important;
+        }
+    }
+    .#{$ns}-align-items-unset {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: unset !important;
+        }
+    }
+    .#{$ns}-align-items-baseline {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: baseline !important;
+        }
+    }
+    .#{$ns}-align-items-stretch {
+        @include com-zhilizhili-polyfill-ie8() {
+            align-items: stretch !important;
+        }
+    }
+}
+
+@mixin com-zhilizhili-layout-use-block() {
+    .#{$ns}-layout.block {
+        display: block;
+    }
+}
+
+@mixin com-zhilizhili-layout-use-inline-block() {
+    .#{$ns}-layout.inline-block {
+        display: inline-block;
+    }
+}
+
+/// @access public
+/// @author lbc
+/// @content selector style
+/// @param {String} $selector
+/// @param {Number} $width
+/// @param {Number} $gutter
+/// @param {Map}    $leftstyle  [()] - leftstyle
+/// @param {Map}    $rightstyle [()] - rightstyle
+@mixin com-zhilizhili-layout-calcsize-shim($selector, $leftwidth, $gutter, $leftstyle: (), $rightstyle: ()) {
+    .#{$ns}-layout.calcsize-shim {
+        &#{$selector} {
+            > .layout__item[calcsize-shim-role=left]{
+                float: left;     //向左浮动
+                width: #{$leftwidth}px;    //固定宽度
+                position: relative;//由于.left与.right-fix重合，且.right-fix在DOM树上的位置比.left要后，因此.right-fix会遮挡住.left，设置.left为relative可以让其冒出来。
+                @include com-zhilizhili-utils-map-to-style($leftstyle);
+            }
+            > .layout__item[calcsize-shim-role=right-fix]{
+                float: right;     //向右浮动
+                width: 100%;    //为了自适应设为100%
+                margin-left: -#{$leftwidth}px;//由于宽度设为100%，.right-fix遭到浏览器换行处理；因此通过设置负的margin值，在左侧制造出100px的空白，使.right-fix与.left重合（即处于同一行）
+            }
+            [calcsize-shim-role=right]{
+                margin-left: #{$leftwidth + $gutter}px;    //由于.left和.right-fix重合了，因此给.right设置一个margin-left，避免内容区（.right）与.left重合。另外，120px - 100px = 多出来的20px实际上就相当于.left和.right之间的间隔了。
+                @include com-zhilizhili-utils-map-to-style($rightstyle);
+            }
+            @content;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+@function lfx-list-remove-by-value($originlist, $deletevalue) {
+    $res: $originlist;
+    $res: sl-remove($res, $deletevalue);
+    @return $res;
+}
+
+@function lfx-list-remove-by-list($originlist, $deletelist) {
+    $res: $originlist;
+    @each $value in $deletelist {
+        $res: sl-remove($res, $value);
+    }
+    @return $res;
+}

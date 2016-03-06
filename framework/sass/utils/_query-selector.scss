@@ -1,0 +1,5 @@
+@function sd-querySelector($map, $prop) {
+  $args: sl-explode(#{&}, $delimiter:" ");
+  $args: append($args, $prop);
+  @return map-deep-get($map, $args...);
+}

@@ -1,0 +1,37 @@
+@mixin center-nav($childsel: null) {
+    &:before {
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 100%;
+        vertical-align: middle;
+    }
+    @if $childsel != null {
+        #{$childsel} {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    &.display-table {
+        display: table;
+        width: 100%;
+        @if $childsel != null {
+            #{$childsel} {
+                display: table-cell;
+            }
+        }
+    }
+}
+
+@mixin center-center() {
+    @include center-nav();
+    text-align: center;
+}
+
+@mixin use-center-set() {
+    .center-set {
+        @include center-nav(#{&}__item);
+    }
+}
+
+

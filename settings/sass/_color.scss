@@ -1,0 +1,46 @@
+//== Colors
+//
+//## Gray and brand colors for use across Bootstrap.
+
+$color-red-dark:        #E74C3C;
+$color-red:             #ED796D;
+$color-red-light:       #F3A59D;
+$color-red-lighter:     #F9D2CE;
+
+$color-orange-dark:     #F39C12;
+$color-orange:          #F6B54E;
+$color-orange-light:    #F9CD88;
+$color-orange-lighter:  #FCE6C4;
+
+$color-yellow-dark:     #F1C40F;
+$color-yellow:          #F5D34B;
+$color-yellow-light:    #F8E187;
+$color-yellow-lighter:  #FBF0C3;
+
+$color-green-dark:      #2ECC71;
+$color-green:           #63D995;
+$color-green-light:     #96E5B8;
+$color-green-lighter:   #CBF2DB;
+
+$color-teal-dark:       #1ABC9C;
+$color-teal:            #54CDB5;
+$color-teal-light:      #8CDDCD;
+$color-teal-lighter:    #C6EEE6;
+
+$color-blue-dark:       #3498DB;
+$color-blue:            #67B2E4;
+$color-blue-light:      #99CBED;
+$color-blue-lighter:    #CCE5F6;
+
+$gray-base:              #333333;
+$gray-darker:            #666666;
+$gray-dark:              #999999;
+$gray:                   #CCCCCC;
+$gray-light:             #E5E5E5;
+$gray-lighter:           #FAFAFA;
+
+$brand-primary:         $color-blue-dark;
+$brand-success:         $color-green-dark;
+$brand-info:            $color-blue;
+$brand-warning:         $color-orange-dark;
+$brand-danger:          $color-red-dark;

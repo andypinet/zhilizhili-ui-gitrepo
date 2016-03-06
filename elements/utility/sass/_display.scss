@@ -1,0 +1,35 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+@import "../../../settings/sass/namespace";
+
+@mixin com-zhilizhili-zhilizhiliui-elements-utility-display() {
+    .#{$ns}-utility-display-inline-block {
+        display: inline-block;
+    }
+    .#{$ns}-utility-display-block {
+        display: block;
+    }
+    .#{$ns}-utility-display-none {
+        display: none;
+    }
+}
+
+@mixin com-zhilizhili-zhilizhiliui-elements-utility-display-with-media($media) {
+    .zl-#{$media}-utility-display-inline-block {
+        display: inline-block;
+    }
+    .zl-#{$media}-utility-display-block {
+        display: block;
+    }
+    .zl-#{$media}-utility-display-none {
+        display: none;
+    }
+}

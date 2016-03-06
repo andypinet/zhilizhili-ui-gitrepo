@@ -1,0 +1,41 @@
+@import "../../../../sassstd/src/sassstd";
+@import "../../../../sassyjson/stylesheets/SassyJSON";
+@import "../../../../scss-zhilizhili-mei/stylesheets/mei";
+
+@import "../../../../zhilizhili-ui/framework/sass/utils/full-parent";
+@import "../../../../zhilizhili-ui/framework/sass/utils/size";
+@import "../../../../zhilizhili-ui/framework/sass/utils/bem";
+@import "../../../../zhilizhili-ui/framework/sass/utils/query-selector";
+@import "../../../../zhilizhili-ui/framework/sass/common/sim-querySelector";
+
+/// @access public
+/// @author lbc
+/// @param {Number} $breakpoint
+/// @param {Map}    $min-map  - under breakpoint  style
+/// @param {Map}    $max-map  - up breakpoint  style
+@mixin com-zhilizhili-responsive-container-set($breakpoint, $min-map, $max-map) {
+    @include com-zhilizhili-polyfill-ie8() {
+        @each $selctor, $value in $min-map {
+            #{unquote($selctor)} {
+                margin: 0 auto;
+                @include com-zhilizhili-utils-map-to-style($value);
+            }
+        }
+    }
+    @include max-screen($breakpoint - 1) {
+        @each $selctor, $value in $min-map {
+            #{unquote($selctor)} {
+                margin: 0 auto;
+                @include com-zhilizhili-utils-map-to-style($value);
+            }
+        }
+    }
+    @include min-screen($breakpoint) {
+        @each $selctor, $value in $max-map {
+            #{unquote($selctor)} {
+                margin: 0 auto;
+                @include com-zhilizhili-utils-map-to-style($value);
+            }
+        }
+    }
+}

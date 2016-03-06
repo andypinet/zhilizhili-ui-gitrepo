@@ -1,0 +1,29 @@
+$setUnit-debug: false !global;
+
+$desgin-device-width: 0 !global;
+$desgin-device-height: 0 !global;
+
+@mixin setDeviceSize($designWidth, $designHeight) {
+    $desgin-device-width: $designWidth !global;
+    $desgin-device-height: $designHeight !global;
+}
+
+@function setUnit($val, $parentWidth, $unit) {
+    @if $setUnit-debug {
+        @return $val + px;
+    } @else {
+        @return ($val / $parentWidth) * 100 + $unit;
+    }
+}
+
+@function vw($unit) {
+    @return setUnit($unit, $desgin-device-width, vw);
+}
+
+@function vh($unit) {
+    @return setUnit($unit, $desgin-device-height, vh);
+}
+
+@function dp($unit) {
+    @return setUnit($unit, 360, vw);
+}

@@ -22,3 +22,12 @@
         float: right;
     }
 }
+
+@mixin com-zhilizhili-use-utility-float-with-media($media, $ns: "zl") {
+    .#{$ns}-#{$media}-utility-float-left {
+        float: left;
+    }
+    .#{$ns}-#{$media}-utility-float-right {
+        float: right;
+    }
+}

@@ -16,3 +16,10 @@
         border-style: solid;
     }
 }
+
+@mixin com-zhilizhili-zhilizhiliui-elements-utility-border-with-media($media, $ns: "zl") {
+    .#{$ns}-#{$media}-border-basic {
+        border-width: 1px;
+        border-style: solid;
+    }
+}

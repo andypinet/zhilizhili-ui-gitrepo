@@ -80,3 +80,49 @@
         z-index: 3;
     }
 }
+
+@mixin use-utility-position-with-media($media, $ns: "zl") {
+    .#{$ns}-#{$media}-utility-pos-relative {
+        position: relative;
+    }
+    .#{$ns}-#{$media}-utility-pos-fixed {
+        position: fixed;
+    }
+    .#{$ns}-#{$media}-utility-pos-absolute {
+        position: absolute;
+        &.center.center {
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+    .#{$ns}-#{$media}-utility-pos-left-0 {
+        left: 0;
+    }
+    .#{$ns}-#{$media}-utility-pos-top-0 {
+        top: 0;
+    }
+    .#{$ns}-#{$media}-utility-pos-right-0 {
+        right: 0;
+    }
+    .#{$ns}-#{$media}-utility-pos-bottom-0 {
+        bottom: 0;
+    }
+    .#{$ns}-#{$media}-utility-pos-top-full-parent {
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .#{$ns}-#{$media}-utility-z-index-1 {
+        z-index: 1;
+    }
+    .#{$ns}-#{$media}-utility-z-index-2 {
+        z-index: 2;
+    }
+    .#{$ns}-#{$media}-utility-z-index-3 {
+        z-index: 3;
+    }
+}

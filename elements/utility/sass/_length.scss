@@ -22,3 +22,16 @@
         height: 100%;
     }
 }
+
+@mixin com-zhilizhili-zhilizhiliui-utility-length-with-media($media, $ns: "zl") {
+    .#{$ns}-#{$media}-utility-full-width {
+        width: 100%;
+    }
+    .#{$ns}-#{$media}-utility-full-height {
+        height: 100%;
+    }
+    .#{$ns}-#{$media}-utility-full-parent {
+        width: 100%;
+        height: 100%;
+    }
+}
